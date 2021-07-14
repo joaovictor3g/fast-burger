@@ -1,5 +1,5 @@
-import connection from "../../src/database/connection";
-import { app } from '../../src/server';
+import connection from "../database/connection";
+import { app } from '../server';
 import request from 'supertest';
 
 describe('student', () => {
