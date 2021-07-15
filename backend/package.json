@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=dev ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "knex:latest": "NODE_ENV=dev knex --knexfile knexfile.ts migrate:latest",
+    "knex:latest": "knex --knexfile knexfile.ts migrate:latest",
     "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "knex:make": "knex --knexfile knexfile.ts migrate:make"
@@ -13,6 +13,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "knex": "^0.95.7",
     "pg": "^8.6.0",
