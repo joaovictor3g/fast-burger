@@ -87,7 +87,7 @@ export const clientController = {
         .select("*")
         .where("email", email as string);
 
-        if(data.length === 0){
+        if(data.length === 0) {
           return res
           .status(404)
           .json({errorMessage: 'Cliente não encontrado.'});
