@@ -3,6 +3,7 @@ import { clientController } from "./controllers/clientController";
 import { clientRequestController } from "./controllers/clientRequestController";
 import { igredientController } from "./controllers/ingredientController";
 import { requestController } from "./controllers/requestController";
+import { requestIngredientController } from "./controllers/requestIngredientsController";
 
 const routes = Router();
 
@@ -31,6 +32,17 @@ routes.get(
 routes.delete(
   "/clientRequestDelete/:clientId/:requestId",
   clientRequestController.delete
+);
+
+routes.post("/requestIngredient", requestIngredientController.create);
+routes.get("/requestIngredient", requestIngredientController.list);
+routes.get(
+  "/requestIngredientById/:requestId",
+  requestIngredientController.getByRequesttID
+);
+routes.delete(
+  "/requestIngredientDelete/:requestId/:ingredientId",
+  requestIngredientController.deleteIngredient
 );
 
 export { routes };
