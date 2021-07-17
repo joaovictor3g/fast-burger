@@ -2,7 +2,7 @@ import connection from "../database/connection";
 import { app } from '../server';
 import request from 'supertest';
 
-describe('student', () => {
+describe('client', () => {
   beforeEach(async () => {
     await connection.migrate.rollback();
     await connection.migrate.latest();
@@ -21,4 +21,51 @@ describe('student', () => {
       })
     expect(response.status).toEqual(201);
   });
-})
+
+  it('should be error to create a client with same email', async() => {
+    await request(app)
+      .post('/client')
+      .send({
+        name: 'João Victor',
+        email: 'joao@gmail.com'
+      });
+
+    const response = await request(app)
+      .post('/client')
+      .send({
+        name: 'João Victor',
+        email: 'joao@gmail.com'
+      });
+    expect(response.body).toEqual({ errorMessage: 'Email já foi cadastrado.' })
+  });
+
+  it('should not create a client with wrong email format', async() => {
+    const response = await request(app)
+      .post('/client')
+      .send({
+        name: 'João Victor',
+        email: 'joao'
+      });
+    expect(response.body).toEqual({ errorMessage: 'E-mail inválido.' });
+  });
+  
+  it('should get client by id', async() => {
+    const response = await request(app)
+      .post('/client')
+      .send({
+        name: 'João Victor',
+        email: 'joao@gmail.com'
+      });
+    
+    const clientId = response.body.id;
+    
+    const client = await request(app)
+      .get(`/clientById/${clientId}`);
+
+    expect(client.body).toEqual({
+      client_id: clientId,
+      name: 'João Victor',
+      email: 'joao@gmail.com',
+    })
+  });
+});

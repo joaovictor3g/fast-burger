@@ -25,7 +25,7 @@ export const requestController = {
     try {
       const data = await connection("requests").select("*");
 
-      res.status(200).json({ count: data.length, data });
+      res.status(200).json(data);
     } catch (err) {
       throw new Error(err);
     }
@@ -74,7 +74,7 @@ export const requestController = {
 
       await connection("requests").update({ status }).where("request_id", id);
 
-      res
+      return res
         .status(200)
         .json({
           success: true,

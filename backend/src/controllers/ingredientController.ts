@@ -26,7 +26,7 @@ export const igredientController = {
         .select("*")
         .from("ingredients");
 
-      res.status(200).json({ count: data.length, data });
+      res.status(200).json(data);
     } catch (err) {
       throw new Error(err);
     }
@@ -54,7 +54,7 @@ export const igredientController = {
           .json({ success: false, message: "Ingrediente não encontrado." });
       }
 
-      res.status(200).json({ data });
+      res.status(200).json(data);
     } catch (err) {
       return new Error(err);
     }
@@ -122,7 +122,7 @@ export const igredientController = {
         .update({ name, amount, type })
         .where("ingredient_id", id);
 
-      res.status(200).json({
+      res.status(204).json({
         success: true,
         message: "Ingrediente atualizado com sucesso.",
       });
