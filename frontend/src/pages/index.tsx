@@ -1,5 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
+
+import { Box, Button } from '@material-ui/core';
+
 import styles from '../styles/Home.module.scss'
 
 export default function Home() {
