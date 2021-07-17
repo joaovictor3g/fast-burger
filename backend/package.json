@@ -9,7 +9,7 @@
     "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "knex:make": "knex --knexfile knexfile.ts migrate:make",
-    "test": "NODE_ENV=test jest --detectOpenHandles --notify --verbose --testTimeout=2000"
+    "test": "NODE_ENV=test jest --detectOpenHandles --verbose"
   },
   "dependencies": {
     "cors": "^2.8.5",

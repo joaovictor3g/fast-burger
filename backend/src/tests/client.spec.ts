@@ -62,8 +62,10 @@ describe('client', () => {
     const client = await request(app)
       .get(`/clientById/${clientId}`);
 
-    expect(client.body).toHaveProperty('name', 'João Victor');
-    expect(client.body).toHaveProperty('email', 'joao@gmail.com');
-    expect(client.body).toHaveProperty('client_id', clientId);
-  })
-})
+    expect(client.body).toEqual({
+      client_id: clientId,
+      name: 'João Victor',
+      email: 'joao@gmail.com',
+    })
+  });
+});
