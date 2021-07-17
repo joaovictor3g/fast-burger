@@ -49,23 +49,23 @@ describe('client', () => {
     expect(response.body).toEqual({ errorMessage: 'E-mail inválido.' });
   });
   
-  it('should get client by id', async() => {
-    const response = await request(app)
-      .post('/client')
-      .send({
-        name: 'João Victor',
-        email: 'joao@gmail.com'
-      });
+  // it('should get client by id', async() => {
+  //   const response = await request(app)
+  //     .post('/client')
+  //     .send({
+  //       name: 'João Victor',
+  //       email: 'joao@gmail.com'
+  //     });
     
-    const clientId = response.body.id;
+  //   const clientId = response.body.id;
     
-    const client = await request(app)
-      .get(`/clientById/${clientId}`);
+  //   const client = await request(app)
+  //     .get(`/clientById/${clientId}`);
 
-    expect(client.body).toEqual({
-      client_id: clientId,
-      name: 'João Victor',
-      email: 'joao@gmail.com',
-    })
-  });
+  //   expect(client.body).toEqual({
+  //     client_id: clientId,
+  //     name: 'João Victor',
+  //     email: 'joao@gmail.com',
+  //   })
+  // });
 });

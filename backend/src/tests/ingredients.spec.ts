@@ -40,7 +40,7 @@ describe('ingredients', () => {
     expect(response.status).toBe(200);
   });
 
-  it('it should delete an ingredient passind id', async () => {
+  it('should delete an ingredient passind id', async () => {
     const response = await request(app)
       .delete('/ingredientDelete/1');
 

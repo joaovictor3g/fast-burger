@@ -139,8 +139,6 @@ export const requestIngredientController = {
           .json({ success: false, message: "Pedido não encontrado." });
       }
 
-      console.log(storedRequestId, storedIngredientId);
-
       /* await connection("client_requests")
         .delete()
         .where("request_id", requestId);

@@ -100,7 +100,6 @@ export const clientRequestController = {
 
   async delete(req: Request, res: Response) {
     const { clientId, requestId } = req.params;
-    console.log(requestId)
 
     try {
       const storedClientId = await connection("clients")
