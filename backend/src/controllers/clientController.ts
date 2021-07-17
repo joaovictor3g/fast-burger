@@ -14,7 +14,6 @@ export const clientController = {
     try {
       const data = await connection("clients")
         .select("*")
-        .from("clients")
         .where("email", email);
 
       if (data.length > 0) {
@@ -39,7 +38,7 @@ export const clientController = {
 
   async list(req: Request, res: Response) {
     try {
-      const data = await connection("clients").select("*").from("clients");
+      const data = await connection("clients").select("*");
 
       res.status(200).json({ count: data.length, data });
     } catch (err) {
@@ -48,57 +47,54 @@ export const clientController = {
   },
 
   async getByID(req: Request, res: Response) {
-    const { id } = req.query;
+    const { id } = req.params;
 
-    if(!id){
+    if (!id) {
       return res
-          .status(400)
-          .json({errorMessage: "Id de cliente inválido."});
+        .status(400)
+        .json({ success: false, message: "Id de cliente inválido." });
     }
 
     try {
       const data = await connection("clients")
         .select("*")
-        .where("client_id", id as string);
+        .where("client_id", id as string)
+        .first();
 
-        if(data.length === 0) {
-          return res
-          .status(404)
-          .json({errorMessage: 'Cliente não encontrado.'});
-        }
-
+      if (!data) {
         return res
-          .status(201)
-          .json({data: data[0]});
+          .status(404)
+          .json({ success: false, message: "Cliente não encontrado." });
+      }
+
+      return res.status(201).json({ data });
     } catch (err) {
       return new Error(err);
     }
   },
 
   async getByEmail(req: Request, res: Response) {
-    const { email } = req.query;
+    const { email } = req.params;
 
     if (!validate(email as string)) {
-      res.status(400).json({ errorMessage: "E-mail inválido." });
+      res.status(400).json({ success: false, message: "E-mail inválido." });
     }
 
     try {
       const data = await connection("clients")
         .select("*")
-        .where("email", email as string);
+        .where("email", email)
+        .first();
 
-        if(data.length === 0) {
-          return res
-          .status(404)
-          .json({errorMessage: 'Cliente não encontrado.'});
-        }
-
+      if (!data) {
         return res
-          .status(201)
-          .json({data: data[0]});
+          .status(404)
+          .json({ success: false, message: "Cliente não encontrado." });
+      }
+
+      return res.status(201).json({ data });
     } catch (err) {
       return new Error(err);
     }
   },
-
 };
