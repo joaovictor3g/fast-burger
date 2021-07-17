@@ -2,7 +2,7 @@ import connection from "../database/connection";
 import { app } from '../server';
 import request from 'supertest';
 
-describe('student', () => {
+describe('client', () => {
   beforeEach(async () => {
     await connection.migrate.rollback();
     await connection.migrate.latest();
