@@ -15,7 +15,7 @@ app.use(routes);
 
 if(process.env.NODE_ENV!=='test') {
   app.listen(port, () => {
-    console.log('Running on ', port);
+    console.log('Running on port ', port);
   });
 }
 

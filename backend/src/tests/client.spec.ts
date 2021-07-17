@@ -48,15 +48,22 @@ describe('student', () => {
       });
     expect(response.body).toEqual({ errorMessage: 'E-mail inválido.' });
   });
-
-  // it('should get a client by ID', async() => {
-  //   await request(app)
-  //     .post('/client')
-  //     .send({
-  //       name: 'João Victor',
-  //       email: 'joao@gmail.com'
-  //     });
-
+  
+  it('should get client by id', async() => {
+    const response = await request(app)
+      .post('/client')
+      .send({
+        name: 'João Victor',
+        email: 'joao@gmail.com'
+      });
     
-  // });
+    const clientId = response.body.id;
+    
+    const client = await request(app)
+      .get(`/clientById/${clientId}`);
+
+    expect(client.body).toHaveProperty('name', 'João Victor');
+    expect(client.body).toHaveProperty('email', 'joao@gmail.com');
+    expect(client.body).toHaveProperty('client_id', clientId);
+  })
 })
