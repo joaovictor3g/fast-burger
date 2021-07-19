@@ -18,6 +18,13 @@ module.exports = {
     },
     useNullAsDefault: true
   },
+  production: {
+    client: process.env.DATABASE_CLIENT,
+    connection: process.env.DB_CONNECTION_PRODUCTION,
+    migrations: {
+      directory: path.resolve(__dirname, 'src', 'database', 'migrations')
+    },
+  },
   test: {
     client: process.env.DATABASE_CLIENT,
     version: process.env.DATABASE_VERSION,
