@@ -1,0 +1,38 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15vh;
+
+  .status {
+    margin: 25px 10px;
+    max-width: 300px;
+    height: 40px;
+    border-radius: 40px;
+    border-color: #ed541a;
+    padding: 10px 20px;
+    color: #ed541a;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: sans-serif;
+  }
+
+  .button {
+    border-radius: 30px;
+    background-color: #ed541a;
+    color: white;
+    padding: 10px 15px;
+    position: fixed;
+    bottom: 10vh;
+
+    &:hover {
+      background-color: #d34a18;
+    }
+
+    span {
+      font-weight: 900;
+      font-family: sans-serif;
+      text-transform: none;
+    }
+  }
+}
