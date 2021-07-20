@@ -18,14 +18,12 @@ export default function Home(props) {
       <div className={styles.content}> 
         <Image src={burgerIcon} alt="burger logo"/>
 
-        <Link href="/realizar-pedido">
+        <Link href="/createRequest">
           <a>Realizar pedido</a>
         </Link>
         <Link href="/ver-historico">
           <a>Ver histórico</a>
         </Link>
-
-        <p>{JSON.stringify(props)}</p>
       </div>
     </div>
   )

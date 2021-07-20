@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modalContent {
+    background: #ED541A;
+    border-radius: 10px;
+    width: 200px;
+    height: 2px;
+  }
+}
