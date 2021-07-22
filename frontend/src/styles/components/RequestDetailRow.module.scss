@@ -1,0 +1,11 @@
+.root{
+    width: 90%;
+    padding: 15px;
+
+    .listItem{
+        padding-left: 40px;
+        .listItemIcon{
+            min-width: 40px;
+        }
+    }
+}
