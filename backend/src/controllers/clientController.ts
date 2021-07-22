@@ -40,7 +40,7 @@ export const clientController = {
     try {
       const data = await connection("clients").select("*");
 
-      res.status(200).json(data);
+      res.status(200).json({ count: data.length, data });
     } catch (err) {
       throw new Error(err);
     }
@@ -67,7 +67,7 @@ export const clientController = {
           .json({ success: false, message: "Cliente não encontrado." });
       }
 
-      return res.status(201).json(data);
+      return res.status(201).json({ data });
     } catch (err) {
       return new Error(err);
     }
@@ -92,7 +92,7 @@ export const clientController = {
           .json({ success: false, message: "Cliente não encontrado." });
       }
 
-      return res.status(201).json(data);
+      return res.status(201).json({ data });
     } catch (err) {
       return new Error(err);
     }
