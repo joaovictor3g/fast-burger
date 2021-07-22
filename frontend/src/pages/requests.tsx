@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from 'next/router';
 import Head from "next/head";
 import PageTitle from "../components/PageTitle";
 import RequestRow from "../components/RequestRow";
@@ -97,6 +98,9 @@ const initialRequest: Request[] = [
 
 export default function Requests(props: {}) {
   const [request, setRequest] = useState<Request[]>(initialRequest); // TODO: se for mais de um pedido por criação, criar uma estrutura de pedidos muliplos
+  const router = useRouter();
+  const query = router.query;
+  const amount = query.amount;
 
   return (
     <div className={styles.root}>
