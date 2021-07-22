@@ -21,7 +21,7 @@ export default function Home(props) {
         <Link href="/createRequest">
           <a>Realizar pedido</a>
         </Link>
-        <Link href="/ver-historico">
+        <Link href="/historic">
           <a>Ver histórico</a>
         </Link>
       </div>

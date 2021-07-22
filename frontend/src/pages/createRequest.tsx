@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/CreateRequest.module.scss';
@@ -35,9 +35,14 @@ export default function CreateRequest() {
           <button onClick={() => handleChangeAmount(+1)} type="button"> + </button>
         </div>
 
-        <button type="button">Ok</button>
+        <Link href={{
+          pathname: '/requests',
+          query: { amount }
+        }}>
+          <a className={styles.linkRequest}>Ok</a>
+        </Link>
         <Modal />
-      </div>
+      </div>  
     </div>
   );
 }

@@ -80,7 +80,7 @@
       }
     }
 
-    button {
+    .linkRequest {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -91,6 +91,7 @@
       padding: 10px;
       outline: 0;
       cursor: pointer;
+      text-decoration: none;
 
       font-family: Montserrat;
       font-style: normal;
