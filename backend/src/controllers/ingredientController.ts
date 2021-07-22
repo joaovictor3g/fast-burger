@@ -85,6 +85,21 @@ export const igredientController = {
     }
   },
 
+
+  async listByType(req: Request, res: Response) {
+    const { type } = req.query;
+
+    try {
+      const response = await connection('ingredients')
+        .select('*')
+        .where('type', String(type));
+
+      return res.status(200).json(response);
+    } catch(err) {
+      return new Error(err);
+    }
+  },
+
   async update(req: Request, res: Response) {
     const { id } = req.params;
     const { name, amount, type } = req.body;
