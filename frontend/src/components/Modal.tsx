@@ -1,6 +1,14 @@
 import React from 'react';
+import Image from 'next/image';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import ModalInfo from '@material-ui/core/Modal';
+import styles from '../styles/components/Modal.module.scss';
+import paoDeBrioche from '../assets/pao-brioche.svg';
+interface ModalProps {
+  title?: string;
+  description?: string;
+  img?: string;
+}
 
 function getModalStyle() {
   const top = 50;
@@ -18,16 +26,35 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       position: 'absolute',
       width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
+      border: 0,
       padding: theme.spacing(2, 4, 3),
       background: 'red',
     },
+    title: {
+      fontFamily: 'Montserrat, sans-serif',
+      color: '#FFF',
+      textAlign: 'center'
+    },
+
+    description: {
+      fontFamily: 'Montserrat',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontSize: '12px',
+      lineHeight: '15px',
+      textAlign: 'center',
+
+      color: '#FFFFFF',
+    },
+
+    image: {
+      width: '100%',
+      objectFit: 'fill'
+    }
   }),
 );
 
-export function Modal() {
+export function Modal({ description, img, title }: ModalProps) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -43,16 +70,29 @@ export function Modal() {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      <div 
+        style={{ 
+          display:'flex', 
+          height: '100%', 
+          flex: 1,  
+          position: 'relative', 
+          alignItems: 'center', 
+          justifyContent: 'center' 
+        }}
+      >
+      <Image className={classes.image} src={paoDeBrioche} alt="ingrediente"/>
+      </div>
+      <h2 className={classes.title}>Pão de brioche</h2>
+      <p className={classes.description} id="simple-modal-description">
+        Ele é doce e macio, levando manteiga, 
+        leite, gemas e açúcar em sua receita.
       </p>
-      <Modal />
     </div>
   );
 
   return (
-    <div>
+    <div className={styles.container}>
+      <button onClick={handleOpen}>abrir</button>
       <ModalInfo
         open={open}
         onClose={handleClose}
