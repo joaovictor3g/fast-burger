@@ -17,6 +17,7 @@ routes.get("/ingredient", igredientController.list);
 routes.get("/ingredientById/:id", igredientController.getByID);
 routes.delete("/ingredientDelete/:id", igredientController.delete);
 routes.put("/ingredientUpdate/:id", igredientController.update);
+routes.get('/ingredient-by-type', igredientController.listByType);
 
 routes.post("/request", requestController.create);
 routes.get("/request", requestController.list);
