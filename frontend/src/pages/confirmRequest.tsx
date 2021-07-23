@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Typography, TextField } from '@material-ui/core';
-
+import { useRouter } from 'next/router';
 import PageTitle from '../components/PageTitle';
 import styles from '../styles/ConfirmRequest.module.scss';
 
@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core/styles';
 import { FormEvent, useState } from 'react';
 import { Modal } from '../components/Modal';
+import { api } from '../services/api';
+
 
 const CssTextField = withStyles({
   root: {
@@ -48,12 +50,32 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ConfirmRequest() {
+  const router = useRouter();
+
   const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
+    
+    const data = {
+      name, 
+      email
+    }
+
+    try {
+      const response = await api.post('/client', data);
+      const info = response.data;
+      const clientId = info.id;
+
+      setTimeout(() => {
+        router.push(`/status/${clientId}`);
+      }, 2000)
+
+    } catch(err) {
+      alert('Erro')
+    }
   }
 
   return (
@@ -99,6 +121,8 @@ export default function ConfirmRequest() {
             variant="outlined"
             id="custom-css-outlined-input"
             type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           
           />
           <button type="submit">Finalizar Pedido</button>
