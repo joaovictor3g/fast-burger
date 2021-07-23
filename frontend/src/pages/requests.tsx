@@ -1,113 +1,60 @@
 import { useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Head from "next/head";
 import PageTitle from "../components/PageTitle";
 import RequestRow from "../components/RequestRow";
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import styles from "../styles/Requests.module.scss";
 import { GetServerSideProps } from "next";
 import { api } from "../services/api";
-import { Ingredient } from "../types";
+import { Ingredient, ParsedIngredients } from "../types";
+import { useClientContext } from "../contexts/ClientContext";
 
 interface RequestProps {
-  ingredients: Ingredient[];
+  data: Ingredient[];
 }
-
-const ingredientData = [
-  {
-    type: "Pão",
-    ingOptions: [
-      {
-        name: "Pão brioche",
-        description: "Uma descrição do pão",
-        ingredient_id: 1,
-        amount: 2,
-        price: 2.5,
-        type: "Pão",
-      },
-      {
-        name: "Pão baguette",
-        description: "Uma descrição do pão baguette",
-        ingredient_id: 2,
-        amount: 4,
-        price: 4.5,
-        type: "Pão",
-      },
-    ],
-  },
-  {
-    type: "Carne",
-    ingOptions: [
-      {
-        name: "Hamburger bovino",
-        description: "Uma descrição do hamburger bovino",
-        ingredient_id: 3,
-        amount: 2,
-        price: 2.5,
-        type: "Carne",
-      },
-      {
-        name: "Hamburger suíno",
-        description: "Uma descrição do hamburger suíno",
-        ingredient_id: 4,
-        amount: 4,
-        price: 4.5,
-        type: "Carne",
-      },
-    ],
-  },
-  {
-    type: "Molho",
-    ingOptions: [
-      {
-        name: "Maionese",
-        description: "Uma descrição do hamburger bovino",
-        ingredient_id: 5,
-        amount: 2,
-        price: 2.5,
-        type: "Carne",
-      },
-      {
-        name: "Ketchup",
-        description: "Uma descrição do hamburger suíno",
-        ingredient_id: 6,
-        amount: 4,
-        price: 4.5,
-        type: "Carne",
-      },
-      {
-        name: "Mostarda",
-        description: "Uma descrição do hamburger suíno",
-        ingredient_id: 7,
-        amount: 4,
-        price: 4.5,
-        type: "Carne",
-      },
-    ],
-  },
-];
-
 export interface Request {
   status: string;
   ingredients: number[];
 }
 
-const initialRequest: Request[] = [
-  {
-    status: "Esperando",
-    ingredients: [],
-  },
-  {
-    status: "Esperando",
-    ingredients: [],
-  },
-];
+const initialRequest: Request = {
+  status: "Esperando",
+  ingredients: [],
+};
+const ingType = ["Pão", "Carne", "Molho"];
 
-export default function Requests(props: Ingredient[]) {
-  const [request, setRequest] = useState<Request[]>(initialRequest); // TODO: se for mais de um pedido por criação, criar uma estrutura de pedidos muliplos
+export default function Requests(props: RequestProps) {
   const router = useRouter();
   const query = router.query;
   const amount = query.amount;
+  const [request, setRequest] = useState<Request>(initialRequest);
+  const { clientId } = useClientContext();
+
+  const parseIngredients = (): ParsedIngredients => {
+    let parsedDate: ParsedIngredients = [];
+
+    parsedDate = ingType.map((type) => {
+      const ing = props.data.filter((ingredient) => ingredient.type === type);
+      return {
+        type: type,
+        ingOptions: ing,
+      };
+    });
+    return parsedDate;
+  };
+
+  const ingredientData = parseIngredients();
+
+  const handleSubmit = async () => {
+    try {
+      await api.post("/request/", { clientId, request });
+
+      router.push(`/status/${clientId}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={styles.root}>
@@ -116,39 +63,29 @@ export default function Requests(props: Ingredient[]) {
       </Head>
       <PageTitle title="Pedidos" />
       <div className={styles.container}>
-        {
-          // interates over array of requests to generates RequestRow components
-          request.map((request, index) => (
-            <div key={index}>
-              <Typography
-                variant="h5"
-                component="div"
-                className={styles.rowTitle}
-              >
-                Pedido 0{index + 1}
-              </Typography>
-              <RequestRow
-                key={index}
-                requestIndex={index}
-                request={request}
-                setRequest={setRequest}
-                ingredients={ingredientData}
-              />
-            </div>
-          ))
-        }
+        <Typography variant="h5" component="div" className={styles.rowTitle}>
+          Pedido de comida
+        </Typography>
+        <RequestRow
+          request={request}
+          setRequest={setRequest}
+          ingredients={ingredientData}
+        />
       </div>
+      <Button className={styles.button} onClick={handleSubmit}>
+        <Typography>Criar Pedido</Typography>
+      </Button>
     </div>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async(ctx) => {
-  const response = await api.get('/ingredient');
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const response = await api.get("/ingredient");
   const data = response.data;
-  
+
   return {
     props: {
-      data
-    }
-  }
-}
+      data,
+    },
+  };
+};

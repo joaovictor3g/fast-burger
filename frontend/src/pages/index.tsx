@@ -18,7 +18,7 @@ export default function Home(props) {
       <div className={styles.content}> 
         <Image src={burgerIcon} alt="burger logo"/>
 
-        <Link href="/createRequest">
+        <Link href="/confirmRequest">
           <a>Realizar pedido</a>
         </Link>
         <Link href="/historic">

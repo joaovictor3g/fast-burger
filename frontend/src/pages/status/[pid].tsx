@@ -6,39 +6,48 @@ import RequestDetailRow from "../../components/RequestDetailRow";
 import { useRouter } from "next/router";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
+import { Modal } from "../../components/Modal";
+import { Ingredient } from "../../types";
 
 interface ClientRequestProps {
-  success: boolean,
-  count: number,
+  success: boolean;
+  count: number;
   data: {
-    ingredient_id: number,
-    name: string,
-    price: number,
-    description: string,
-    amount: number,
-    type: string
-  }[],
+    ingredient_id: number;
+    name: string;
+    price: number;
+    description: string;
+    amount: number;
+    type: string;
+  }[];
 }
 
 export default function Status() {
   const router = useRouter();
   const { pid } = router.query;
+  const [requests, setRequests] = useState<ClientRequestProps>(
+    {} as ClientRequestProps
+  );
+  const [open, setOpen] = useState(false);
+  const [selectedIng, setSelectedIng] = useState<Ingredient>({} as Ingredient);
 
-  const [requests, setRequests] = useState<ClientRequestProps>();
+  console.log(pid);
 
   async function getRequestsByClientId() {
     try {
-      const response = await api.get<ClientRequestProps>(`/clientRequestByClientId/${pid}`);
+      const response = await api.get<ClientRequestProps>(
+        `/clientRequestByClientId/${pid}`
+      );
 
       setRequests(response.data);
-    } catch(err) {
-      return alert('Erro');
+    } catch (err) {
+      return alert("Erro");
     }
   }
 
   useEffect(() => {
     getRequestsByClientId();
-  }, []);
+  }, [pid]);
 
   return (
     <div className={styles.root}>
@@ -47,8 +56,10 @@ export default function Status() {
       </Head>
       <PageTitle title="Meu Pedido" />
       <RequestDetailRow
-        requestName="Pedido 01"
-        ingredients={["Pão brioche", "Hamburger", "Tomate", "Maionese"]}
+        requestName="Detalhes do pedido"
+        ingredients={requests?.data}
+        setSelectedIng={setSelectedIng}
+        handleOpen={() => setOpen(true)}
       />
 
       <Divider style={{ width: "90%" }} />
@@ -57,6 +68,12 @@ export default function Status() {
         label="Preparando..."
         variant="outlined"
         className={styles.status}
+      />
+      <Modal
+        description={selectedIng?.description}
+        title={selectedIng?.name}
+        isOpen={open}
+        handleClose={() => setOpen(false)}
       />
       <Button className={styles.button}>Página Inicial</Button>
     </div>
