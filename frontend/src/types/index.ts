@@ -5,4 +5,9 @@ export type Ingredient = {
   description: string;
   amount: number;
   type: string;
-}
+};
+
+export type ParsedIngredients = {
+  type: string;
+  ingOptions: Ingredient[];
+}[];

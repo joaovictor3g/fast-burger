@@ -5,10 +5,12 @@ import ModalInfo from '@material-ui/core/Modal';
 import styles from '../styles/components/Modal.module.scss';
 import paoDeBrioche from '../assets/pao-brioche.svg';
 interface ModalProps {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   img?: string;
-}
+  isOpen: boolean;
+  handleClose():void;
+} 
 
 function getModalStyle() {
   const top = 50;
@@ -54,19 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export function Modal({ description, img, title }: ModalProps) {
+export function Modal({ description, img, title, isOpen=false, handleClose }: ModalProps) {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -82,19 +74,17 @@ export function Modal({ description, img, title }: ModalProps) {
       >
       <Image className={classes.image} src={paoDeBrioche} alt="ingrediente"/>
       </div>
-      <h2 className={classes.title}>Pão de brioche</h2>
+      <h2 className={classes.title}>{title}</h2>
       <p className={classes.description} id="simple-modal-description">
-        Ele é doce e macio, levando manteiga, 
-        leite, gemas e açúcar em sua receita.
+        {description}
       </p>
     </div>
   );
 
   return (
     <div className={styles.container}>
-      <button onClick={handleOpen}>abrir</button>
       <ModalInfo
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
