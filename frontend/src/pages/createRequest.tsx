@@ -41,7 +41,6 @@ export default function CreateRequest() {
         }}>
           <a className={styles.linkRequest}>Ok</a>
         </Link>
-        <Modal />
       </div>  
     </div>
   );

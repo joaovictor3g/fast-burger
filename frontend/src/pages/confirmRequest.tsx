@@ -128,7 +128,6 @@ export default function ConfirmRequest() {
           <button type="submit">Finalizar Pedido</button>
         </form>
       </div>
-      <Modal />
     </>
   );
 }
