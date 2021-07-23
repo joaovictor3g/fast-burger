@@ -5,6 +5,13 @@ import PageTitle from "../components/PageTitle";
 import RequestRow from "../components/RequestRow";
 import { Typography } from "@material-ui/core";
 import styles from "../styles/Requests.module.scss";
+import { GetServerSideProps } from "next";
+import { api } from "../services/api";
+import { Ingredient } from "../types";
+
+interface RequestProps {
+  ingredients: Ingredient[];
+}
 
 const ingredientData = [
   {
@@ -96,7 +103,7 @@ const initialRequest: Request[] = [
   },
 ];
 
-export default function Requests(props: {}) {
+export default function Requests(props: Ingredient[]) {
   const [request, setRequest] = useState<Request[]>(initialRequest); // TODO: se for mais de um pedido por criação, criar uma estrutura de pedidos muliplos
   const router = useRouter();
   const query = router.query;
@@ -133,4 +140,15 @@ export default function Requests(props: {}) {
       </div>
     </div>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async(ctx) => {
+  const response = await api.get('/ingredient');
+  const data = response.data;
+  
+  return {
+    props: {
+      data
+    }
+  }
 }
