@@ -13,7 +13,7 @@ import {
 import { FormEvent, useState } from 'react';
 import { Modal } from '../components/Modal';
 import { api } from '../services/api';
-
+import { useClientContext } from '../contexts/ClientContext';
 
 const CssTextField = withStyles({
   root: {
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ConfirmRequest() {
   const router = useRouter();
+  const { handleSaveClientId } = useClientContext();
 
   const classes = useStyles();
   const [name, setName] = useState('');
@@ -69,8 +70,10 @@ export default function ConfirmRequest() {
       const info = response.data;
       const clientId = info.id;
 
+      handleSaveClientId(clientId);
+
       setTimeout(() => {
-        router.push(`/status/${clientId}`);
+        router.push(`/requests`);
       }, 2000)
 
     } catch(err) {
