@@ -3,7 +3,7 @@ import connection from "../database/connection";
 
 export const igredientController = {
   async create(req: Request, res: Response) {
-    const { name, amount, type } = req.body;
+    const { name, amount, type, price, image_url, description } = req.body;
 
     try {
       const [id] = await connection("ingredients")
@@ -11,6 +11,9 @@ export const igredientController = {
           name,
           amount,
           type,
+          price, 
+          description,
+          image_url
         })
         .returning("ingredient_id");
 

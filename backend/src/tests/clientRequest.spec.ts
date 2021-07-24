@@ -17,7 +17,8 @@ describe('client made a request', () => {
       .post('/client')
       .send({
         name: 'João Victor', 
-        email: 'joao@gmail.com'
+        email: 'joao@gmail.com',
+        password: '123'
       });
 
     const requestBody = await request(app)
@@ -46,7 +47,8 @@ describe('client made a request', () => {
       .post('/client')
       .send({
         name: 'João Victor', 
-        email: 'joao@gmail.com'
+        email: 'joao@gmail.com',
+        password: '123'
       });
 
     await request(app)
@@ -68,7 +70,8 @@ describe('client made a request', () => {
       .post('/client')
       .send({
         name: 'João Victor', 
-        email: 'joao@gmail.com'
+        email: 'joao@gmail.com',
+        password: '123'
       });
 
     const requestBody = await request(app)
