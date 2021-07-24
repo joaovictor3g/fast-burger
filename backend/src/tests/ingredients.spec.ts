@@ -11,10 +11,13 @@ describe('ingredients', () => {
     await request(app)
       .post('/ingredient')
       .send({
-        name: 'Hambúrger',
-        amount: 1,
-        type: 'Burger'
-      });
+        name: "Pão brioche",
+        description: "Um pão para os melhores dias da sua vida.",
+        amount: 100,
+        price: 2.5,
+        type: "Pão",
+        image_url: "https://www.aryzta.com.br/wp-content/uploads/2017/10/pao_brioche_max-1.jpg",
+      },);
   });
 
   afterAll(async () => {
@@ -25,10 +28,13 @@ describe('ingredients', () => {
     const ingredientCreated = await request(app)
       .post('/ingredient')
       .send({
-        name: 'Hambúrger',
-        amount: 1,
-        type: 'Burger'
-      });
+        name: "Pão brioche",
+        description: "Um pão para os melhores dias da sua vida.",
+        amount: 100,
+        price: 2.5,
+        type: "Pão",
+        image_url: "https://www.aryzta.com.br/wp-content/uploads/2017/10/pao_brioche_max-1.jpg",
+      },);
 
     expect(ingredientCreated.status).toEqual(201);
   });
@@ -51,10 +57,13 @@ describe('ingredients', () => {
     const response = await request(app)
       .put('/ingredientUpdate/1')
       .send({
-        name: 'Hambúrger',
-        amount: 3,
-        type: 'Burger'
-      });
+        name: "Pão brioche",
+        description: "Um pão para os melhores dias da sua vida.",
+        amount: 100,
+        price: 2.5,
+        type: "Pão",
+        image_url: "https://www.aryzta.com.br/wp-content/uploads/2017/10/pao_brioche_max-1.jpg",
+      },);
 
     expect(response.status).toBe(204);
   });
