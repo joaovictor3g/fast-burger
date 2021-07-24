@@ -17,6 +17,24 @@
     font-family: sans-serif;
   }
 
+  .linkButton  {
+    background-color: #ed541a;
+    color: white;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    padding: 10px 30px;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-weight: 900;
+    
+    p {
+      text-transform: capitalize;
+      font-family: sans-serif;
+      font-weight: 900;
+    }
+  }
+
   .button {
     border-radius: 30px;
     background-color: #ed541a;

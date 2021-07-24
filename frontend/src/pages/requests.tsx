@@ -8,9 +8,13 @@ import styles from "../styles/Requests.module.scss";
 import { GetServerSideProps } from "next";
 import { api } from "../services/api";
 import { Ingredient, ParsedIngredients } from "../types";
-import { useClientContext, ClientContextProvider } from "../contexts/ClientContext";
+import {
+  useClientContext,
+  ClientContextProvider,
+} from "../contexts/ClientContext";
 import toast from "react-hot-toast";
 import { useRequestContext } from "../contexts/RequestContext";
+import Link from "next/link";
 
 interface RequestProps {
   data: Ingredient[];
@@ -51,20 +55,25 @@ export default function Requests(props: RequestProps) {
     try {
       await api.post("/request", { clientId, request });
 
-      toast.success('Pedido criado')
+      toast.success("Pedido criado");
 
       router.push(`/status/${clientId}`);
     } catch (err) {
-      toast.error('Não foi possível criar o pedido, tente novamente!')
+      toast.error("Não foi possível criar o pedido, tente novamente!");
     }
   };
 
   return (
-      <div className={styles.root}>
+    <div className={styles.root}>
       <Head>
         <title>Fast Burger | Pedidos</title>
       </Head>
       <PageTitle title="Pedidos" />
+      
+      <Link href="/historic">
+        <a className={styles.button}>Ver meu histórico</a>
+      </Link>
+
       <div className={styles.container}>
         <div className={styles.requestContainer}>
           <Typography variant="h5" component="div" className={styles.rowTitle}>

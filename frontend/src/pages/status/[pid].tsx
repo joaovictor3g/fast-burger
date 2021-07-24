@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "../../components/Modal";
 import { Ingredient } from "../../types";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 interface ClientRequestProps {
   success: boolean;
@@ -20,6 +21,7 @@ interface ClientRequestProps {
     description: string;
     amount: number;
     type: string;
+    image_url: string;
   }[];
 }
 
@@ -32,9 +34,7 @@ export default function Status() {
   const [open, setOpen] = useState(false);
   const [selectedIng, setSelectedIng] = useState<Ingredient>({} as Ingredient);
 
-
   async function getRequestsByClientId() {
-    console.log(pid)
     try {
       const response = await api.get<ClientRequestProps>(
         `/clientRequestByClientId/${pid}`
@@ -42,7 +42,7 @@ export default function Status() {
 
       setRequests(response.data);
     } catch (err) {
-      toast.error('Erro ao carregar pedidos');
+      toast.error("Erro ao carregar pedidos");
     }
   }
 
@@ -56,6 +56,10 @@ export default function Status() {
         <title>Fast Burger | Meu pedido</title>
       </Head>
       <PageTitle title="Meu Pedido" />
+      <Link href="/historic">
+        <a className={styles.linkButton}>Ver meu histórico</a>
+      </Link>
+
       <RequestDetailRow
         requestName="Detalhes do pedido"
         ingredients={requests?.data}

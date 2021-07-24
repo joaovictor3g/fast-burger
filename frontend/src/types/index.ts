@@ -18,14 +18,17 @@ export type HistoricRequests = {
   name: string;
   count: number;
   data: {
-    ingredient_id: number;
-    name: string;
-    price: number;
-    description: string;
-    amount: number;
-    type: string;
-    request_id: number;
-    created_at: Date;
-    status: string;
-  }[]
-}
+    request: {
+      ingredient_id: number;
+      name: string;
+      price: number;
+      description: string;
+      amount: number;
+      type: string;
+      request_id: number;
+      created_at: Date;
+      status: string;
+      image_url: string;
+    }[];
+  }[];
+};
