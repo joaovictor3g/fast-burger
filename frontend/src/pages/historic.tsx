@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TableContainer,
   Table,
@@ -14,6 +14,10 @@ import {
 } from "@material-ui/core";
 import PageTitle from "../components/PageTitle";
 import styles from "../styles/Historic.module.scss";
+import toast from "react-hot-toast";
+import { api } from "../services/api";
+import { HistoricRequests } from "../types";
+import Head from "next/head";
 
 interface RowProps {
   name: string;
@@ -47,8 +51,28 @@ function Row(props: RowProps) {
 }
 
 export default function Historic() {
+  const [historicRequests, setHistoricRequests] = useState({} as HistoricRequests);
+
+  async function getHistoricRequests() {
+    try {
+      const response = await api.get(`/clientRequestByClientId/85d67611-6142-487e-9fe6-7f6e9e80be34`);
+
+      setHistoricRequests(response.data);
+      
+    } catch(err) {
+      toast.error('Não foi possivel pegar o historico')
+    }
+  }
+
+  useEffect(() => {
+    getHistoricRequests()
+  }, [])
+
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Fast Burger | Histórico</title>
+      </Head>
       <PageTitle title="Historico" />
       <TableContainer className={styles.container} component={Paper}>
         <Table>
@@ -60,9 +84,9 @@ export default function Historic() {
             </TableRow>
           </TableHead>
           <TableBody>
-            <Row name="Emiliano" date="10/10/2018" amount={1} />
-            <Row name="Felipe" date="15/10/2018" amount={2} />
-            <Row name="Victor" date="20/10/2018" amount={3} />
+            {historicRequests.data?.map((historic) => (
+              <Row key={historic.request_id} name={historicRequests.name} date={new Intl.DateTimeFormat('pt-BR').format(new Date(historic.created_at))} amount={historic.amount} />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
