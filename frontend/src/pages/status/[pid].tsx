@@ -8,6 +8,7 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { Modal } from "../../components/Modal";
 import { Ingredient } from "../../types";
+import toast from "react-hot-toast";
 
 interface ClientRequestProps {
   success: boolean;
@@ -31,9 +32,9 @@ export default function Status() {
   const [open, setOpen] = useState(false);
   const [selectedIng, setSelectedIng] = useState<Ingredient>({} as Ingredient);
 
-  console.log(pid);
 
   async function getRequestsByClientId() {
+    console.log(pid)
     try {
       const response = await api.get<ClientRequestProps>(
         `/clientRequestByClientId/${pid}`
@@ -41,7 +42,7 @@ export default function Status() {
 
       setRequests(response.data);
     } catch (err) {
-      return alert("Erro");
+      toast.error('Erro ao carregar pedidos');
     }
   }
 

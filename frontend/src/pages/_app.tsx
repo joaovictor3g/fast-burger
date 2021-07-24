@@ -6,7 +6,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../styles/theme';
 
 import { ClientContextProvider } from '../contexts/ClientContext';
+import { Toaster } from 'react-hot-toast';
 
+interface AppProps {
+  clientId: string;
+}
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 
@@ -27,6 +31,9 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
+        <Toaster 
+          position="top-right"
+        />
         <ClientContextProvider>
           <Component {...pageProps} />
         </ClientContextProvider>

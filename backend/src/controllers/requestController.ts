@@ -8,7 +8,6 @@ export const requestController = {
     const trx = await connection.transaction();
     
     try {
-    
       const [id] = await trx("requests")
         .insert({
           request_id: uuidV4(),

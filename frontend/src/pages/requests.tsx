@@ -8,7 +8,8 @@ import styles from "../styles/Requests.module.scss";
 import { GetServerSideProps } from "next";
 import { api } from "../services/api";
 import { Ingredient, ParsedIngredients } from "../types";
-import { useClientContext } from "../contexts/ClientContext";
+import { useClientContext, ClientContextProvider } from "../contexts/ClientContext";
+import toast from "react-hot-toast";
 
 interface RequestProps {
   data: Ingredient[];
@@ -26,10 +27,9 @@ const ingType = ["Pão", "Carne", "Molho"];
 
 export default function Requests(props: RequestProps) {
   const router = useRouter();
-  const query = router.query;
-  const amount = query.amount;
   const [request, setRequest] = useState<Request>(initialRequest);
   const { clientId } = useClientContext();
+  console.log(clientId);
 
   const parseIngredients = (): ParsedIngredients => {
     let parsedDate: ParsedIngredients = [];
@@ -48,16 +48,18 @@ export default function Requests(props: RequestProps) {
 
   const handleSubmit = async () => {
     try {
-      await api.post("/request/", { clientId, request });
+      await api.post("/request", { clientId, request });
+
+      toast.success('Pedido criado')
 
       router.push(`/status/${clientId}`);
     } catch (err) {
-      console.log(err);
+      toast.error('Não foi possível criar o pedido, tente novamente!')
     }
   };
 
   return (
-    <div className={styles.root}>
+      <div className={styles.root}>
       <Head>
         <title>Fast Burger | Pedidos</title>
       </Head>

@@ -1,8 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
-
-type Client = {
-  clientId: string;
-};
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 interface ClientContextData {
   clientId: string;

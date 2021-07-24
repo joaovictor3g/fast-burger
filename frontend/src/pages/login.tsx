@@ -2,7 +2,9 @@ import Head from 'next/head';
 import { Typography, TextField } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import PageTitle from '../components/PageTitle';
-import styles from '../styles/ConfirmRequest.module.scss';
+import styles from '../styles/Login.module.scss';
+import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 import {
   createStyles,
@@ -14,6 +16,8 @@ import { FormEvent, useState } from 'react';
 import { Modal } from '../components/Modal';
 import { api } from '../services/api';
 import { useClientContext } from '../contexts/ClientContext';
+import toast from 'react-hot-toast';
+import { GetServerSideProps } from 'next';
 
 const CssTextField = withStyles({
   root: {
@@ -49,43 +53,47 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ConfirmRequest() {
+export default function Login() {
   const router = useRouter();
-  // const { handleSaveClientId } = useClientContext();
+  const { handleSaveClientId } = useClientContext();
 
   const classes = useStyles();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     
-    const data = {
-      name, 
+    const data = { 
       email,
       password
-    }
+    };
 
     try {
-      const response = await api.post('/client', data);
+      const response = await api.post('/session', data);
       const info = response.data;
-      const clientId = info.id;
+      const clientId = info.client_id;
+      console.log(clientId);
+      handleSaveClientId(clientId);
+      
+      toast.success('Login com sucesso!!!');
 
-      // handleSaveClientId(clientId)
       setTimeout(() => {
-        router.push(`/login`);
+        router.push(`/requests`);
       }, 2000)
 
     } catch(err) {
-      alert('Erro')
+      console.log(err);
+      toast.error('Informações incorretas, verifique e tente novamente', {
+        duration: 2000
+      })
     }
   }
 
   return (
     <>
       <Head>
-        <title>Fast Burger | Finalizar</title>
+        <title>Fast Burger | Login</title>
       </Head>
       <PageTitle title="Finalizar pedido"/>
       <div className={styles.container}>
@@ -94,31 +102,12 @@ export default function ConfirmRequest() {
             variant="h4" 
             className={styles.pageTitle}
           >
-            Para se cadastrar,
-            
-          </Typography>
-          <Typography 
-            variant="h4" 
-            className={styles.pageTitle}
-          >
-            preencha os dados a seguir.
+            Faça seu login
             
           </Typography>
         </div>
         
         <form onSubmit={onSubmit}>
-          <CssTextField
-            error={name!=='' && !name.trim()}
-            helperText={name!=='' && !name.trim() && "Nome Incorreto"}
-            className={classes.margin}
-            label="Nome"
-            variant="outlined"
-            id="custom-css-outlined-input"
-            type="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            
-          />
           <CssTextField
             className={classes.margin}
             label="Email"
@@ -127,11 +116,11 @@ export default function ConfirmRequest() {
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-          
+            
           />
           <CssTextField
             className={classes.margin}
-            label="Senha"
+            label="Password"
             variant="outlined"
             id="custom-css-outlined-input"
             type="password"
@@ -139,7 +128,10 @@ export default function ConfirmRequest() {
             onChange={e => setPassword(e.target.value)}
           
           />
-          <button type="submit">Finalizar Cadastro</button>
+          <Link href="/confirmRequest">
+            <a className={styles.notSigned}>Não tem cadastro?</a>
+          </Link>
+          <button type="submit">Login</button>
         </form>
       </div>
     </>

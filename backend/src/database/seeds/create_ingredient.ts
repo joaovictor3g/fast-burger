@@ -39,7 +39,7 @@ const ingredients = [
     ingredient_id: 5,
     amount: 2,
     price: 2.5,
-    type: "Carne",
+    type: "Molho",
   },
   {
     name: "Ketchup",
@@ -47,7 +47,7 @@ const ingredients = [
     ingredient_id: 6,
     amount: 4,
     price: 4.5,
-    type: "Carne",
+    type: "Molho",
   },
   {
     name: "Mostarda",
@@ -55,7 +55,7 @@ const ingredients = [
     ingredient_id: 7,
     amount: 4,
     price: 4.5,
-    type: "Carne",
+    type: "Molho",
   },
 ];
 

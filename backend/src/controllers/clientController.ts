@@ -5,7 +5,7 @@ import { validate } from "email-validator";
 
 export const clientController = {
   async create(req: Request, res: Response) {
-    const { name, email } = req.body;
+    const { name, email, password } = req.body;
 
     if (!validate(email)) {
       res.status(400).json({ errorMessage: "E-mail inválido." });
@@ -27,6 +27,7 @@ export const clientController = {
           client_id: uuidV4(),
           name,
           email,
+          password
         })
         .returning("client_id");
 
