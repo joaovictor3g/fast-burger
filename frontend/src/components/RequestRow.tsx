@@ -15,8 +15,7 @@ import styles from "../styles/components/RequestRow.module.scss";
 
 export interface RequestProps {
   request: Request;
-  setRequest: Dispatch<SetStateAction<Request[]>>;
-  requestIndex: number;
+  setRequest: Dispatch<SetStateAction<Request>>;
   ingredients: {
     type: string;
     ingOptions: {
@@ -31,7 +30,7 @@ export interface RequestProps {
 }
 
 export default function RequestRow(props: RequestProps) {
-  const { request, setRequest, ingredients, requestIndex } = props;
+  const { request, setRequest, ingredients } = props;
   const [opened, setOpened] = useState(0);
 
   const handleToggle = (value: number, index) => () => {
@@ -54,9 +53,11 @@ export default function RequestRow(props: RequestProps) {
       }
     }
 
-    setRequest((prevState) => {
-      prevState[requestIndex].ingredients = newChecked;
-      return [...prevState];
+    setRequest((previousRequest) => {
+      return {
+        ...previousRequest,
+        ingredients: newChecked,
+      };
     });
   };
 

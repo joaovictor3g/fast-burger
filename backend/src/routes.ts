@@ -4,6 +4,7 @@ import { clientRequestController } from "./controllers/clientRequestController";
 import { igredientController } from "./controllers/ingredientController";
 import { requestController } from "./controllers/requestController";
 import { requestIngredientController } from "./controllers/requestIngredientsController";
+import { sessionController } from "./controllers/sessionController";
 
 const routes = Router();
 
@@ -45,5 +46,7 @@ routes.delete(
   "/requestIngredientDelete/:requestId/:ingredientId",
   requestIngredientController.deleteIngredient
 );
+
+routes.post('/session', sessionController.create);
 
 export { routes };
