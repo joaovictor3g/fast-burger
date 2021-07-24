@@ -80,6 +80,11 @@ export const clientRequestController = {
           .json({ success: false, message: "Cliente não cadastrado." });
       }
 
+      const name = await connection('clients')
+        .select('name')
+        .where('client_id', clientId)
+        .first();
+
       const requestData: { request_id: string } = await connection("client_requests")
         .select("request_id")
         .where("client_id", clientId)
@@ -88,14 +93,17 @@ export const clientRequestController = {
       const requestId = requestData.request_id;
 
       const requestIngredientData = await connection('request_ingredients')
+        .join('requests', 'requests.request_id', 'request_ingredients.request_id')
         .join('ingredients', 'ingredients.ingredient_id', 'request_ingredients.ingredient_id')  
-        .where('request_id', requestId)
-        .select('ingredients.*')
+        .where('request_ingredients.request_id', requestId)
+        .select('ingredients.*', 'requests.*')
 
       return res.status(200).json({
         success: true,
+        name: name.name,
         count: requestIngredientData.length,
         data: requestIngredientData,
+       
       });
     } catch (err) {
       return new Error(err);
