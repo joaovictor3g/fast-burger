@@ -7,6 +7,7 @@ import theme from '../styles/theme';
 
 import { ClientContextProvider } from '../contexts/ClientContext';
 import { Toaster } from 'react-hot-toast';
+import { RequestProvider } from '../contexts/RequestContext';
 
 interface AppProps {
   clientId: string;
@@ -33,7 +34,9 @@ export default function MyApp(props) {
         <CssBaseline />
         <Toaster />
         <ClientContextProvider>
-          <Component {...pageProps} />
+          <RequestProvider>
+            <Component {...pageProps} />
+          </RequestProvider>
         </ClientContextProvider>
       </ThemeProvider>
     </React.Fragment>

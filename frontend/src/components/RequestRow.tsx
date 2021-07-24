@@ -12,6 +12,8 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { Request } from "../pages/requests";
 import styles from "../styles/components/RequestRow.module.scss";
+import { useRequestContext } from "../contexts/RequestContext";
+import { Ingredient } from "../types";
 
 export interface RequestProps {
   request: Request;
@@ -21,10 +23,11 @@ export interface RequestProps {
     ingOptions: {
       name: string;
       price: number;
-      description;
+      description: string;
       amount: number;
       type: string;
       ingredient_id: number;
+      image_url: string;
     }[];
   }[];
 }
@@ -32,8 +35,9 @@ export interface RequestProps {
 export default function RequestRow(props: RequestProps) {
   const { request, setRequest, ingredients } = props;
   const [opened, setOpened] = useState(0);
+  const { handlePushIngredient } = useRequestContext();
 
-  const handleToggle = (value: number, index) => () => {
+  const handleToggle = (value: number, index: number, ingredient: Ingredient) => () => {
     const ingIds: number[] = ingredients.map((ing) =>
       ing.ingOptions.map((opt) => opt.ingredient_id)
     )[index];
@@ -52,6 +56,8 @@ export default function RequestRow(props: RequestProps) {
         newChecked.splice(currentIndex, 1);
       }
     }
+
+    handlePushIngredient(ingredient)
 
     setRequest((previousRequest) => {
       return {
@@ -87,10 +93,11 @@ export default function RequestRow(props: RequestProps) {
                     <ListItem
                       button
                       style={{ paddingLeft: 40 }}
-                      onClick={handleToggle(ingOption.ingredient_id, index)}
+                      onClick={handleToggle(ingOption.ingredient_id, index, ingOption)}
                     >
                       <ListItemIcon className={styles.listIcon}>
                         <Checkbox
+                          
                           edge="start"
                           checked={
                             request.ingredients.indexOf(
@@ -102,7 +109,7 @@ export default function RequestRow(props: RequestProps) {
                         />
                       </ListItemIcon>
                       <ListItemAvatar>
-                        <Avatar style={{ height: 35, width: 35 }}>In</Avatar>
+                        <Avatar src={ingOption.image_url} style={{ height: 35, width: 35, objectFit: 'contain' }}>In</Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={ingOption.name} />
                     </ListItem>
