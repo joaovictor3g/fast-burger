@@ -12,10 +12,88 @@ $title-main-color: #ed541a !default;
     border-radius: 15px 15px 0 0;
     padding: 14px 24px;
     font-weight: 900;
-    font-family: sans-serif;
+    font-family: Montserrat, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    
+    span {
+      font-size: 1rem;
+      opacity: 0.5;
+    }
   }
 
   .container {
     width: 90%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .requestContainer {
+      width: 65%;
+      display: flex;
+      flex-direction: column;
+      min-width: 200px;
+    }
+
+    aside {
+      width: 30%;
+      min-width: 250px;
+      height: 100%;
+      background: #e5e5e5;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding: 10px;
+
+      h3 {
+        text-align: center;
+      }
+
+      h3, span {
+        font-size: 1.2rem;
+        border-radius: 15px 15px 0 0;
+        padding: 14px 24px;
+        font-weight: 900;
+        font-family: Montserrat, sans-serif;
+      }
+
+      .listRequest, .totalPrice {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      span {
+        font-size: 1rem;
+        
+        &:last-child {
+          color: red;
+        }
+      }
+
+      .totalPrice {
+        span {
+          font-size: 1.6rem;
+        }
+        
+      }
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: red;
+        text-decoration: underline;
+        align-self: flex-end;
+        background: transparent;
+        width: max-content;
+        
+        p {
+          font-family: 'Montserrat';
+          font-size: 1rem;
+        }
+      }
+    }
   }
 }

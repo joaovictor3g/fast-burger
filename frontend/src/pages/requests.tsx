@@ -10,6 +10,7 @@ import { api } from "../services/api";
 import { Ingredient, ParsedIngredients } from "../types";
 import { useClientContext, ClientContextProvider } from "../contexts/ClientContext";
 import toast from "react-hot-toast";
+import { useRequestContext } from "../contexts/RequestContext";
 
 interface RequestProps {
   data: Ingredient[];
@@ -23,13 +24,13 @@ const initialRequest: Request = {
   status: "Esperando",
   ingredients: [],
 };
-const ingType = ["Pão", "Carne", "Molho"];
+const ingType = ["Pão", "Carne", "Molho", "Saladas", "Bebidas"];
 
 export default function Requests(props: RequestProps) {
   const router = useRouter();
   const [request, setRequest] = useState<Request>(initialRequest);
   const { clientId } = useClientContext();
-  console.log(clientId);
+  const { ingredients, total } = useRequestContext();
 
   const parseIngredients = (): ParsedIngredients => {
     let parsedDate: ParsedIngredients = [];
@@ -65,18 +66,48 @@ export default function Requests(props: RequestProps) {
       </Head>
       <PageTitle title="Pedidos" />
       <div className={styles.container}>
-        <Typography variant="h5" component="div" className={styles.rowTitle}>
-          Pedido de comida
-        </Typography>
-        <RequestRow
-          request={request}
-          setRequest={setRequest}
-          ingredients={ingredientData}
-        />
+        <div className={styles.requestContainer}>
+          <Typography variant="h5" component="div" className={styles.rowTitle}>
+            Pedido de comida
+            <span>(Selecione 1 de cada)</span>
+          </Typography>
+          <RequestRow
+            request={request}
+            setRequest={setRequest}
+            ingredients={ingredientData}
+          />
+        </div>
+        <aside> 
+          <h3>Listagem de pedidos </h3>
+          {ingredients.map((ingredient) => (
+            <div key={ingredient.ingredient_id} className={styles.listRequest}>
+              <span>{ingredient.name}</span>
+              <span>{
+                new Intl.NumberFormat('pt-BR', {
+                  style: 'currency', 
+                  currency: 'BRL'})
+                .format(ingredient.price)
+              }</span>
+            </div>
+          ))}
+
+          <div className={styles.totalPrice}>
+            <span>Total</span>
+            <span>
+              {
+                new Intl.NumberFormat('pt-BR', {
+                  style: 'currency', 
+                  currency: 'BRL'})
+                .format(total)
+              }
+              </span>
+          </div>
+
+          <Button className={styles.button} onClick={handleSubmit}>
+            <Typography>Criar Pedido</Typography>
+          </Button>
+        </aside>
       </div>
-      <Button className={styles.button} onClick={handleSubmit}>
-        <Typography>Criar Pedido</Typography>
-      </Button>
     </div>
   );
 }

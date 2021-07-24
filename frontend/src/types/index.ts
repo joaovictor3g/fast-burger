@@ -5,6 +5,7 @@ export type Ingredient = {
   description: string;
   amount: number;
   type: string;
+  image_url: string;
 };
 
 export type ParsedIngredients = {

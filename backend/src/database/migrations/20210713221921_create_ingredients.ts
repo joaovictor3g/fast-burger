@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('description').notNullable();
     table.integer('amount').notNullable();
     table.string('type').notNullable();
+    table.string('image_url', 100000).notNullable();
   })
 }
 
