@@ -73,7 +73,6 @@ export default function Login() {
       const response = await api.post('/session', data);
       const info = response.data;
       const clientId = info.client_id;
-      console.log(clientId);
       handleSaveClientId(clientId);
       
       toast.success('Login com sucesso!!!');

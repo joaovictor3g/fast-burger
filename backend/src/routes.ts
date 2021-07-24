@@ -31,6 +31,10 @@ routes.get(
   "/clientRequestByClientId/:clientId",
   clientRequestController.getByClientID
 );
+routes.get(
+  "/clientRequestAllByClientId/:clientId",
+  clientRequestController.getAllByClientID
+);
 routes.delete(
   "/clientRequestDelete/:clientId/:requestId",
   clientRequestController.delete

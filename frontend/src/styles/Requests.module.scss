@@ -96,4 +96,22 @@ $title-main-color: #ed541a !default;
       }
     }
   }
+  
+  .button  {
+    background-color: $main-color;
+    color: $title-main-color;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    padding: 10px 30px;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-weight: 900;
+    
+    p {
+      text-transform: capitalize;
+      font-family: sans-serif;
+      font-weight: 900;
+    }
+  }
 }
