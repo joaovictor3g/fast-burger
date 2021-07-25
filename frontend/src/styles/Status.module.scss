@@ -14,7 +14,7 @@
     color: #ed541a;
     font-size: 20px;
     font-weight: 900;
-    font-family: sans-serif;
+    font-family: Montserrat, sans-serif;
   }
 
   .linkButton  {
@@ -25,12 +25,12 @@
     text-decoration: none;
     padding: 10px 30px;
     text-transform: capitalize;
-    font-family: sans-serif;
+    font-family: Montserrat, sans-serif;
     font-weight: 900;
     
     p {
       text-transform: capitalize;
-      font-family: sans-serif;
+      font-family: Montserrat, sans-serif;
       font-weight: 900;
     }
   }
@@ -42,6 +42,7 @@
     padding: 10px 15px;
     position: fixed;
     bottom: 10vh;
+    font-family: Montserrat, sans-serif;
 
     &:hover {
       background-color: #d34a18;
@@ -49,7 +50,7 @@
 
     span {
       font-weight: 900;
-      font-family: sans-serif;
+      font-family: Montserrat, sans-serif;
       text-transform: none;
     }
   }

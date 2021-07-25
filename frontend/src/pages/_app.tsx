@@ -9,9 +9,6 @@ import { ClientContextProvider } from '../contexts/ClientContext';
 import { Toaster } from 'react-hot-toast';
 import { RequestProvider } from '../contexts/RequestContext';
 
-interface AppProps {
-  clientId: string;
-}
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 

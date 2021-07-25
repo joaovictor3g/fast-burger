@@ -37,22 +37,26 @@ $title-main-color: #ed541a !default;
     }
 
     aside {
+      position: relative;
       width: 30%;
       min-width: 250px;
       height: 100%;
-      background: #e5e5e5;
-      border-radius: 20px;
+      background: rgb(143,143,143);
+background: linear-gradient(90deg, rgba(143,143,143,1) 0%, rgba(255,246,246,1) 100%, rgba(78,222,252,1) 100%, rgba(0,212,255,1) 100%);
+      border-radius: 15px;
       display: flex;
       justify-content: center;
       flex-direction: column;
+      align-items: center;
       padding: 10px;
+
 
       h3 {
         text-align: center;
+        font-size: 1.4rem;
       }
 
       h3, span {
-        font-size: 1.2rem;
         border-radius: 15px 15px 0 0;
         padding: 14px 24px;
         font-weight: 900;
@@ -62,6 +66,8 @@ $title-main-color: #ed541a !default;
       .listRequest, .totalPrice {
         display: flex;
         justify-content: space-between;
+        border-bottom: 1px dashed #CCCCC9;
+        width: 100%;
       }
 
       span {
@@ -81,17 +87,24 @@ $title-main-color: #ed541a !default;
 
       button {
         display: flex;
+        width: 100%;
         justify-content: center;
         align-items: center;
-        color: red;
-        text-decoration: underline;
-        align-self: flex-end;
-        background: transparent;
+        background: rgb(224,27,27);
+        background: linear-gradient(90deg, rgba(224,27,27,1) 0%, rgba(194,189,116,1) 100%, rgba(104,187,212,1) 100%, rgba(78,222,252,1) 100%, rgba(255,246,246,1) 100%, rgba(0,212,255,1) 100%);
+        color: #FFFF;
         width: max-content;
-        
+        margin-top: 20px;
+        transition: 0.2s;
+
+
         p {
           font-family: 'Montserrat';
           font-size: 1rem;
+        }
+
+        &:hover {
+          filter: brightness(0.9);
         }
       }
     }
@@ -105,7 +118,7 @@ $title-main-color: #ed541a !default;
     text-decoration: none;
     padding: 10px 30px;
     text-transform: capitalize;
-    font-family: sans-serif;
+    font-family: Montserrat,sans-serif;
     font-weight: 900;
     
     p {

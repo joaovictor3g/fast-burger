@@ -10,6 +10,7 @@ $title-main-color: #ed541a !default;
   background: $main-color;
   padding: 36px 0 26px;
   margin-bottom: 2rem;
+  position: relative;
 
   .pageTitle {
     font-weight: 900;
@@ -18,5 +19,19 @@ $title-main-color: #ed541a !default;
     text-align: center;
     color: $title-main-color;
     
+  }
+
+  .signOut {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Montserrat, sans-serif;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transition: filter .5s;
+    font-size: 1.1rem;
+    text-decoration: underline;
   }
 }

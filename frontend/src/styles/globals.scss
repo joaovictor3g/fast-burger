@@ -1,9 +1,4 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Montserrat', Roboto, sans-serif;
-}
+
 
 a {
   color: inherit;
@@ -12,6 +7,13 @@ a {
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
   background: #f2f2f2;
   font-size: 62.5%;
+}
+
+
+input, button, span, p, a {
+  font-family: Montserrat, sans-serif;
 }
