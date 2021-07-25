@@ -90,6 +90,7 @@ export const clientRequestController = {
       )
         .select("request_id")
         .where("client_id", clientId)
+        .orderBy('request_id', 'desc')
         .first();
 
       const requestId = requestData.request_id;
