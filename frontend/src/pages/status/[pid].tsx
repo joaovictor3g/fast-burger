@@ -41,6 +41,8 @@ export default function Status() {
         `/clientRequestByClientId/${clientId}`
       );
 
+      console.log(response.data)
+
       setRequests(response.data);
     } catch (err) {
       toast.error("Erro ao carregar pedidos");

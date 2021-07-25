@@ -85,15 +85,17 @@ export const clientRequestController = {
         .where("client_id", clientId)
         .first();
 
-      const requestData: { request_id: string } = await connection(
-        "client_requests"
-      )
-        .select("request_id")
+      const requestData: { request_id: string } = await connection("client_requests")
+        .join('requests', 'requests.request_id', 'client_requests.request_id')
+        .select("requests.request_id")
         .where("client_id", clientId)
-        .orderBy('request_id', 'desc')
+        .orderBy('requests.created_at', 'desc')
         .first();
 
       const requestId = requestData.request_id;
+
+      console.log(requestData)
+    
 
       const requestIngredientData = await connection("request_ingredients")
         .join(
