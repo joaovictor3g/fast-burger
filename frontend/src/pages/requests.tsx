@@ -53,13 +53,14 @@ export default function Requests(props: RequestProps) {
 
   const handleSubmit = async () => {
     try {
-      await api.post("/request", { clientId, request });
+      const response = await api.post("/request", { clientId, request });
+      const requestId = response.data.id;
 
       toast.success("Pedido criado");
 
       handleSetIngredientStateToEmpty();
 
-      router.push(`/status/${clientId}`);
+      router.push(`/status/${requestId}`);
     } catch (err) {
       toast.error("Não foi possível criar o pedido, tente novamente!");
     }

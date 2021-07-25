@@ -5,7 +5,6 @@
   padding-bottom: 15vh;
 
   .status {
-    margin: 25px 10px;
     max-width: 300px;
     height: 40px;
     border-radius: 40px;
@@ -16,6 +15,32 @@
     font-weight: 900;
     font-family: Montserrat, sans-serif;
   }
+
+  .buttonGroup {
+    padding-top: 20px;
+    display: flex;
+    gap: 20px;
+
+    .cancelRequest {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 300px;
+      height: 40px;
+      border-radius: 40px;
+      background: #ed541a;
+      padding: 10px 20px;
+      color: #FFF;
+      border: 0;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 900;
+      font-family: Montserrat, sans-serif;
+    }
+    
+  }
+
+  
 
   .linkButton  {
     background-color: #ed541a;
@@ -54,4 +79,6 @@
       text-transform: none;
     }
   }
+
+  
 }

@@ -27,11 +27,13 @@ interface ClientRequestProps {
 }
 
 export default function Status() {
+  const router = useRouter();
+  const { pid } = router.query;
+  
   const { clientId } = useClientContext();
   const [requests, setRequests] = useState<ClientRequestProps>(
     {} as ClientRequestProps
   );
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [selectedIng, setSelectedIng] = useState<Ingredient>({} as Ingredient);
 
@@ -41,11 +43,23 @@ export default function Status() {
         `/clientRequestByClientId/${clientId}`
       );
 
-      console.log(response.data)
-
       setRequests(response.data);
     } catch (err) {
       toast.error("Erro ao carregar pedidos");
+    }
+  }
+
+  async function handleCancelRequest() {
+    const requestId = pid;
+
+    try {
+      await api.delete(`/clientRequestDelete/${clientId}/${requestId}`);
+
+      toast.success('Pedido cancelado com sucesso');
+
+      router.push('/requests');
+    } catch(err) {
+      toast.error('Não foi possível cancelar o pedido');
     }
   }
 
@@ -71,12 +85,21 @@ export default function Status() {
       />
 
       <Divider style={{ width: "90%" }} />
-
-      <Chip
-        label="Preparando..."
-        variant="outlined"
-        className={styles.status}
-      />
+      <div className={styles.buttonGroup}>
+        <button 
+          type="button"
+          className={styles.cancelRequest}
+          onClick={handleCancelRequest}
+        >
+          Cancelar pedido
+        </button>
+        <Chip
+          label="Preparando..."
+          variant="outlined"
+          className={styles.status}
+        />
+      </div>
+      
       <Modal
         description={selectedIng?.description}
         title={selectedIng?.name}
