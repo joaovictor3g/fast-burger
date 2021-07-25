@@ -10,12 +10,12 @@ import { api } from "../services/api";
 import { Ingredient, ParsedIngredients } from "../types";
 import {
   useClientContext,
-  ClientContextProvider,
 } from "../contexts/ClientContext";
 import toast from "react-hot-toast";
 import { useRequestContext } from "../contexts/RequestContext";
 import Link from "next/link";
-
+import burgerIcon from '../assets/burgerIcon.svg';
+import Image from 'next/image';
 interface RequestProps {
   data: Ingredient[];
 }
@@ -86,7 +86,9 @@ export default function Requests(props: RequestProps) {
             ingredients={ingredientData}
           />
         </div>
-        <aside> 
+        {ingredients.length > 0 && 
+          <aside> 
+          <Image src={burgerIcon} alt="logo"/>
           <h3>Listagem de pedidos </h3>
           {ingredients.map((ingredient) => (
             <div key={ingredient.ingredient_id} className={styles.listRequest}>
@@ -115,7 +117,7 @@ export default function Requests(props: RequestProps) {
           <Button className={styles.button} onClick={handleSubmit}>
             <Typography>Criar Pedido</Typography>
           </Button>
-        </aside>
+        </aside>}
       </div>
     </div>
   );

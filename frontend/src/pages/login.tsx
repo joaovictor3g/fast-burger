@@ -1,5 +1,6 @@
+import { FormEvent, useEffect, useState } from 'react';
 import Head from 'next/head';
-import { Typography, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import PageTitle from '../components/PageTitle';
 import styles from '../styles/Login.module.scss';
@@ -13,12 +14,10 @@ import {
   withStyles,
   makeStyles,
 } from '@material-ui/core/styles';
-import { FormEvent, useState } from 'react';
-import { Modal } from '../components/Modal';
+
 import { api } from '../services/api';
 import { useClientContext } from '../contexts/ClientContext';
 import toast from 'react-hot-toast';
-import { GetServerSideProps } from 'next';
 
 const CssTextField = withStyles({
   root: {
@@ -77,16 +76,10 @@ export default function Login() {
       handleSaveClientId(clientId);
       
       toast.success('Login com sucesso!!!');
-
-      setTimeout(() => {
-        router.push(`/requests`);
-      }, 2000)
+      router.push(`/requests`);
 
     } catch(err) {
-      console.log(err);
-      toast.error('Informações incorretas, verifique e tente novamente', {
-        duration: 2000
-      })
+      toast.error('Informações incorretas, verifique e tente novamente');
     }
   }
 
@@ -99,13 +92,6 @@ export default function Login() {
       <div className={styles.container}>
         <div className={styles.description}>
           <Image src={burgerIcon} alt="logo da empresa"/>
-          {/* <Typography 
-            variant="h4" 
-            className={styles.pageTitle}
-          >
-            O melhor restaurante
-            
-          </Typography> */}
         </div>
         
         <form onSubmit={onSubmit}>

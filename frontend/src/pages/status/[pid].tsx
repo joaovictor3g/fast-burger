@@ -3,13 +3,14 @@ import { Divider, Button, Chip } from "@material-ui/core";
 import PageTitle from "../../components/PageTitle";
 import styles from "../../styles/Status.module.scss";
 import RequestDetailRow from "../../components/RequestDetailRow";
-import { useRouter } from "next/router";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { Modal } from "../../components/Modal";
 import { Ingredient } from "../../types";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useClientContext } from "../../contexts/ClientContext";
+import { useRouter } from "next/router";
 
 interface ClientRequestProps {
   success: boolean;
@@ -26,18 +27,18 @@ interface ClientRequestProps {
 }
 
 export default function Status() {
-  const router = useRouter();
-  const { pid } = router.query;
+  const { clientId } = useClientContext();
   const [requests, setRequests] = useState<ClientRequestProps>(
     {} as ClientRequestProps
   );
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [selectedIng, setSelectedIng] = useState<Ingredient>({} as Ingredient);
 
   async function getRequestsByClientId() {
     try {
       const response = await api.get<ClientRequestProps>(
-        `/clientRequestByClientId/${pid}`
+        `/clientRequestByClientId/${clientId}`
       );
 
       setRequests(response.data);
@@ -48,7 +49,7 @@ export default function Status() {
 
   useEffect(() => {
     getRequestsByClientId();
-  }, [pid]);
+  }, [clientId]);
 
   return (
     <div className={styles.root}>
@@ -79,8 +80,9 @@ export default function Status() {
         title={selectedIng?.name}
         isOpen={open}
         handleClose={() => setOpen(false)}
+        img={selectedIng?.image_url}
       />
-      <Button className={styles.button}>Página Inicial</Button>
+      <Button className={styles.button} onClick={() => router.push('/requests')}>Realizar novo pedido</Button>
     </div>
   );
 }

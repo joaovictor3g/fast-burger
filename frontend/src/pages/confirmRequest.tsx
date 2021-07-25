@@ -88,7 +88,7 @@ export default function ConfirmRequest() {
       <Head>
         <title>Fast Burger | Finalizar</title>
       </Head>
-      <PageTitle title="Finalizar pedido"/>
+      <PageTitle title="Cadastre-se aqui"/>
       <div className={styles.container}>
         <div className={styles.description}>
           <Image src={burgerIcon} alt="logo da empresa"/>
