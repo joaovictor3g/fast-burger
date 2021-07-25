@@ -5,6 +5,7 @@ interface RequestContextData {
   ingredients: Ingredient[];
   handlePushIngredient(ingredient: Ingredient): void;
   total: number;
+  handleSetIngredientStateToEmpty(): void;
 }
 
 export const RequestContext = createContext({} as RequestContextData);
@@ -27,13 +28,18 @@ export function RequestProvider({ children }) {
       setTotal(prevTotal => prevTotal + _ingredient.price);
     }
   }
+
+  function handleSetIngredientStateToEmpty() {
+    setIngredients([]);
+  }
   
   return (
     <RequestContext.Provider
       value={{
         ingredients,
         handlePushIngredient,
-        total
+        total,
+        handleSetIngredientStateToEmpty
       }}
     >
       {children}
