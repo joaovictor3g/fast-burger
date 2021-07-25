@@ -11,6 +11,9 @@ export default function Home(props) {
       <Head>
         <title>Fast Burger | Início</title>
         <meta name="description" content="Aplicação para montar seu pedido de forma rápida e sucinta" />
+        <meta property="og:description" content="Aplicação para montar seu pedido de forma rápida e sucinta" />
+        <meta property="og:url" content="https://fast-burger-six.vercel.app/" />
+        <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.content}> 
