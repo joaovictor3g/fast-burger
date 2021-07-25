@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 992px;
+  margin: 0 auto;
+  gap: 50px;
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    span, h4 {
+      text-align: center;
+      font-family: Montserrat, sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 30px;
+      text-align: center;
+  
+      color: #000000;
+    }
+  }
+
+  form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-top: 40px;
+      width: 100%;
+      height: 50px;
+      background: #ED541A;
+      border-radius: 50px;
+      border: 0;
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 20px;
+      line-height: 24px;
+
+      color: #FFFFFF;
+
+    }
+  }
+}
