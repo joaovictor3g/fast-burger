@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import PageTitle from '../components/PageTitle';
 import styles from '../styles/Login.module.scss';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
+import burgerIcon from '../assets/burgerIcon.svg';
+import Image from 'next/image';
 
 import {
   createStyles,
@@ -94,16 +95,17 @@ export default function Login() {
       <Head>
         <title>Fast Burger | Login</title>
       </Head>
-      <PageTitle title="Finalizar pedido"/>
+      <PageTitle title="Faça seu Login"/>
       <div className={styles.container}>
         <div className={styles.description}>
-          <Typography 
+          <Image src={burgerIcon} alt="logo da empresa"/>
+          {/* <Typography 
             variant="h4" 
             className={styles.pageTitle}
           >
-            Faça seu login
+            O melhor restaurante
             
-          </Typography>
+          </Typography> */}
         </div>
         
         <form onSubmit={onSubmit}>

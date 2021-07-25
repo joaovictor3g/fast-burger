@@ -13,17 +13,16 @@
     align-items: center;
     justify-content: center;
 
-    span {
+    span, h4 {
       text-align: center;
-      font-family: Montserrat;
+      font-family: Montserrat, sans-serif;
       font-style: normal;
       font-weight: normal;
-      font-size: 18px;
-      line-height: 12px;
+      font-size: 30px;
+      line-height: 30px;
       text-align: center;
   
       color: #000000;
-  
     }
   }
 

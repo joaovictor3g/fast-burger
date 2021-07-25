@@ -20,7 +20,7 @@ interface RequestDetailRowProps {
 
 export default function RequestDetailRow(props: RequestDetailRowProps) {
   const { requestName, ingredients, handleOpen, setSelectedIng } = props;
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const handleClick = (ingredient: Ingredient) => {
     handleOpen();

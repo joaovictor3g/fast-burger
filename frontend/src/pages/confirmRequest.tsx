@@ -3,7 +3,8 @@ import { Typography, TextField } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import PageTitle from '../components/PageTitle';
 import styles from '../styles/ConfirmRequest.module.scss';
-
+import burgerIcon from '../assets/burgerIcon.svg';
+import Image from 'next/image';
 import {
   createStyles,
   Theme,
@@ -90,6 +91,7 @@ export default function ConfirmRequest() {
       <PageTitle title="Finalizar pedido"/>
       <div className={styles.container}>
         <div className={styles.description}>
+          <Image src={burgerIcon} alt="logo da empresa"/>
           <Typography 
             variant="h4" 
             className={styles.pageTitle}
