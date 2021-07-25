@@ -76,7 +76,7 @@ export default function Historic() {
 
   useEffect(() => {
     getHistoricRequests();
-  }, []);
+  }, [clientId]);
 
   return (
     <div className={styles.root}>

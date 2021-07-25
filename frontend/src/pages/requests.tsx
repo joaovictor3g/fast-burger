@@ -34,7 +34,7 @@ export default function Requests(props: RequestProps) {
   const router = useRouter();
   const [request, setRequest] = useState<Request>(initialRequest);
   const { clientId } = useClientContext();
-  const { ingredients, total } = useRequestContext();
+  const { ingredients, total, handleSetIngredientStateToEmpty } = useRequestContext();
 
   const parseIngredients = (): ParsedIngredients => {
     let parsedDate: ParsedIngredients = [];
@@ -56,6 +56,8 @@ export default function Requests(props: RequestProps) {
       await api.post("/request", { clientId, request });
 
       toast.success("Pedido criado");
+
+      handleSetIngredientStateToEmpty();
 
       router.push(`/status/${clientId}`);
     } catch (err) {

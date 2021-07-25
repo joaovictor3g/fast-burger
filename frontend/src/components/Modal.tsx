@@ -73,6 +73,8 @@ export function Modal({ description, img, title, isOpen=false, handleClose }: Mo
           justifyContent: 'center' 
         }}
       >
+
+      {/*disable-eslint-nextline*/}
       <img 
         className={classes.image} 
         src={img} 
