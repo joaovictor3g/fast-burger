@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 interface ClientContextData {
   clientId: string;
   handleSaveClientId(_clientId: string): void;
+  handleSignOut(): void;
 }
 
 
@@ -22,7 +23,7 @@ export function ClientContextProvider({ children }: ClientContextProviderProps) 
     Cookies.set('client', _clientId);
   }
   
-  function handleSign() {
+  function handleSignOut() {
     Cookies.remove('client');
 
     router.push('/')
@@ -32,7 +33,8 @@ export function ClientContextProvider({ children }: ClientContextProviderProps) 
     <ClientContext.Provider 
       value={{
         clientId,
-        handleSaveClientId
+        handleSaveClientId,
+        handleSignOut
       }}
     >
       {children}
