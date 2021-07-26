@@ -31,6 +31,7 @@ export function RequestProvider({ children }) {
 
   function handleSetIngredientStateToEmpty() {
     setIngredients([]);
+    setTotal(0);
   }
   
   return (
